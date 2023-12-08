@@ -5,11 +5,11 @@ description = ""
 
 [tool.poetry.dependencies]
 python = "^3.10"
-requests = "^2.28.1"
+requests = "*"
 
 [tool.poetry.dev-dependencies]
-pytest-cov = "^3.0.0"
-pytest = "^6.2.5"
+pytest-cov = "*"
+pytest = "*"
 
 
 [build-system]
