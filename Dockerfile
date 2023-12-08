@@ -22,7 +22,7 @@ RUN poetry --version
 # pyproject.toml will be copied among other files
 COPY . ./
 # poetry will build the lock file from scratch if it's missing
-RUN rm poetry.lock
+RUN rm -f poetry.lock
 # install [tool.poetry.dependencies]
 # this will install virtual environment into /.venv because of POETRY_VIRTUALENVS_IN_PROJECT=true
 # see: https://python-poetry.org/docs/configuration/#virtualenvsin-project
