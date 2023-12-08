@@ -1,10 +1,12 @@
-environment {
+pipeline {
+    agent any
+	environment {
         APP_BUILD_ID = 0.1
         FULL_PATH_BRANCH = "${sh(script:'git name-rev --name-only HEAD', returnStdout: true)}"
         GIT_BRANCH = FULL_PATH_BRANCH.substring(FULL_PATH_BRANCH.lastIndexOf('/') + 1, FULL_PATH_BRANCH.length())        
     }
     stages {
-        stage ('Checkout SCM & Merge master to feature branch') {
+        stage ('checkout') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: 'refs/remotes/origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch:'**']], submoduleCfg: [], userRemoteConfigs: [[refspec:"+refs/pull/*:refs/remotes/origin/pr/*", refspec:"+refs/heads/*:refs/remotes/origin/*",credentialsId: '123456789', url: 'XXX']]])
             }
@@ -19,3 +21,4 @@ environment {
             }
         }
     }
+}
