@@ -6,9 +6,6 @@ environment {
     stages {
         stage ('Checkout SCM & Merge master to feature branch') {
             steps{
-                # you might need to set up global git config, for example
-                # sh 'git config --global user.email "XXX"'
-                # sh 'git config --global user.name "XXX"'           
                 checkout([$class: 'GitSCM', branches: [[name: 'refs/remotes/origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch:'**']], submoduleCfg: [], userRemoteConfigs: [[refspec:"+refs/pull/*:refs/remotes/origin/pr/*", refspec:"+refs/heads/*:refs/remotes/origin/*",credentialsId: '123456789', url: 'XXX']]])
             }
         }
