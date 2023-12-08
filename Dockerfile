@@ -1,5 +1,5 @@
 # python-base sets up all our shared environment variables
-FROM python:3.7-slim as python-base 
+FROM python:3.10 as python-base 
 # https://python-poetry.org/docs/configuration/#using-environment-variables
 # make poetry create the virtual environment in the project's root
 # it gets named `.venv`
@@ -18,10 +18,10 @@ WORKDIR /app
 FROM python-base as poetry
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-        # deps for installing poetry
-        curl \
-        # deps for building python deps
-        build-essential \
+    # deps for installing poetry
+    curl \
+    # deps for building python deps
+    build-essential \
     \
     # install poetry - uses $POETRY_VERSION internally, respects $POETRY_VERSION & $POETRY_HOME
     && curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python \
