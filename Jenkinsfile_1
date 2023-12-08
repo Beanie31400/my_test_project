@@ -1,0 +1,21 @@
+environment {
+        APP_BUILD_ID = 0.1
+        FULL_PATH_BRANCH = "${sh(script:'git name-rev --name-only HEAD', returnStdout: true)}"
+        GIT_BRANCH = FULL_PATH_BRANCH.substring(FULL_PATH_BRANCH.lastIndexOf('/') + 1, FULL_PATH_BRANCH.length())        
+    }
+    stages {
+        stage ('Checkout SCM & Merge master to feature branch') {
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: 'refs/remotes/origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch:'**']], submoduleCfg: [], userRemoteConfigs: [[refspec:"+refs/pull/*:refs/remotes/origin/pr/*", refspec:"+refs/heads/*:refs/remotes/origin/*",credentialsId: '123456789', url: 'XXX']]])
+            }
+        }
+        stage('Build') {
+            steps{
+                echo "Build..."
+                script {
+                    sh "git branch"
+                    app = docker.build("test-app-image:${env.APP_BUILD_ID}", "--network=host -f Dockerfile .")
+                }
+            }
+        }
+    }
