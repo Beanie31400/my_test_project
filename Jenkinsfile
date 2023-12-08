@@ -9,11 +9,7 @@ environment {
                 # you might need to set up global git config, for example
                 # sh 'git config --global user.email "XXX"'
                 # sh 'git config --global user.name "XXX"'           
-<<<<<<< HEAD
-                checkout([$class: 'GitSCM', branches: [[name: 'refs/remotes/origin/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch:'**']], submoduleCfg: [], userRemoteConfigs: [[refspec:"+refs/pull/*:refs/remotes/origin/pr/*", refspec:"+refs/heads/*:refs/remotes/origin/*",credentialsId: '123456789', url: 'XXX']]])
-=======
                 checkout([$class: 'GitSCM', branches: [[name: 'refs/remotes/origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch:'**']], submoduleCfg: [], userRemoteConfigs: [[refspec:"+refs/pull/*:refs/remotes/origin/pr/*", refspec:"+refs/heads/*:refs/remotes/origin/*",credentialsId: '123456789', url: 'XXX']]])
->>>>>>> a20530c (first commit)
             }
         }
         stage('Build') {
