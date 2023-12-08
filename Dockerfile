@@ -16,19 +16,7 @@ WORKDIR /app
 
 # builder-base stage is used to build deps + create the virtual environment
 FROM python-base as poetry
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-    # deps for installing poetry
-    curl \
-    # deps for building python deps
-    build-essential \
-    \
-    # install poetry - uses $POETRY_VERSION internally, respects $POETRY_VERSION & $POETRY_HOME
-    && curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python \
-    && mv /root/.poetry $POETRY_PATH \
-    # cleanup
-    && rm -rf /var/lib/apt/lists/*
-
+RUN pip install poetry
 ENV PATH="$POETRY_PATH/bin:$PATH"
 RUN poetry --version
 # pyproject.toml will be copied among other files
